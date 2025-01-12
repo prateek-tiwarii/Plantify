@@ -4,6 +4,8 @@ import * as React from "react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+import { Input } from "@/components/ui/input"
+
 // import { Icons } from "@/components/icons"
 import {
   NavigationMenu,
@@ -14,6 +16,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import Image from "next/image"
+import { Search, ShoppingCart } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -55,8 +60,20 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navbar() {
   return (
+    <div className="bg-white shadow-md flex flex-row w-full  justify-between
+    items-center p-6  top-0 z-50 bg-opacity-90 fixed "> 
+
+
     <NavigationMenu>
       <NavigationMenuList>
+      <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()} >
+              <h1 className="text-3xl">Plantify</h1>
+              <Image src = "/plantLogo.png" alt = "logo" width={38} height={46} />
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -67,7 +84,7 @@ export function Navbar() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    <Icons.logo className="h-6 w-6" />
+                    {/* <Icons.logo className="h-6 w-6" /> */}
                     <div className="mb-2 mt-4 text-lg font-medium">
                       shadcn/ui
                     </div>
@@ -107,15 +124,21 @@ export function Navbar() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+       
       </NavigationMenuList>
     </NavigationMenu>
+
+
+    <div className="flex justify-around items-center p-4 bg-gray-100">
+    <Input type="text" placeholder="search bar"/>
+    <ShoppingCart />
+    <Button variant="outline" className='bg-green-700 text-white  rounded-3xl hover:bg-black'>Login</Button>
+
+
+    </div>
+
+
+    </div>
   )
 }
 
