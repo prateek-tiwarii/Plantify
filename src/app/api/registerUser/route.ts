@@ -8,10 +8,10 @@ export async function POST(req : any,) {
 
     try{
 
-    const {name , email , password , phone} =   await req.body;
+    const {name , email , password } =   await req.body;
 
 
-    if(!name || !email || !password  || !phone){
+    if(!name || !email || !password  ){
         return NextResponse.json({ 
           status: 400,
           error: "please fill all the fields" 
@@ -38,7 +38,7 @@ export async function POST(req : any,) {
             data: {
                 name,
                 email,
-                phone,
+                
                 password
             }
         })
