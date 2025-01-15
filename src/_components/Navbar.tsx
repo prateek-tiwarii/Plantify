@@ -5,7 +5,7 @@ import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
-import { useRouter } from "next/navigation"
+
 
 // import { Icons } from "@/components/icons"
 import {
@@ -59,7 +59,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
-const router = useRouter()
+
 
 export function Navbar() {
   return (
@@ -135,7 +135,8 @@ export function Navbar() {
     <div className="flex justify-around items-center p-4 bg-gray-100">
     <Input type="text" placeholder="search bar"/>
     <ShoppingCart />
-    <Button variant="outline" className='bg-green-700 text-white  rounded-3xl hover:bg-black' >Login</Button>
+    <Link href= "/login"><Button variant="outline" className='bg-green-700 text-white  rounded-3xl hover:bg-black' >Login</Button></Link>
+    
 
 
     </div>
