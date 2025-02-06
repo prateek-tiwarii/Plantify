@@ -17,22 +17,23 @@ model Users {
   phone      Int?
   orders     Orders[]
   cart       Cart[]
+  role       String   @default("user")
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
 
 model Seller {
-  id       Int        @id @default(autoincrement())
-  name     String
-  email    String     @unique
-  password String
-  age      Int?
-  city     String?
-  phone    Int?
-  product  Products[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  id         Int        @id @default(autoincrement())
+  name       String
+  email      String     @unique
+  password   String
+  age        Int?
+  city       String?
+  phone      Int?
+  product    Products[]
+  role       String     @default("seller")
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
 }
 
 model Products {

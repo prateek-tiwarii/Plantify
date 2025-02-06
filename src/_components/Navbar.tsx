@@ -72,8 +72,8 @@ export function Navbar() {
       <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()} >
-              <h1 className="text-3xl">Plantify</h1>
-              <Image src = "/plantLogo.png" alt = "logo" width={38} height={46} />
+              <h1 className="text-xl font-bold">Plantify</h1>
+              <img src = "/plantLogo.png" alt = "logo" className="h-48" />
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

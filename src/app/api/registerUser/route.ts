@@ -8,13 +8,13 @@ export async function POST(req : any,) {
 
     try{
 
-    const {name , email , password } =   await req.body;
+    const {name , email , password } =   await req.json();
 
 
     if(!name || !email || !password  ){
         return NextResponse.json({ 
           status: 400,
-          error: "please fill all the fields" 
+          error: "please fill attributes" 
         }, { status: 400 });
       }
        

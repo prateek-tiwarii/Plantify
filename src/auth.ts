@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
@@ -7,10 +7,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const authOptions : NextAuthOptions = {
+const authHandler = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -20,7 +19,6 @@ export const authOptions : NextAuthOptions = {
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        // Find user in database
         const user = await prisma.users.findUnique({
           where: { email },
         });
@@ -29,7 +27,6 @@ export const authOptions : NextAuthOptions = {
           throw new Error("No user found with this email");
         }
 
-        
         if (password === user.password) {
           return user;
         }
@@ -38,23 +35,40 @@ export const authOptions : NextAuthOptions = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  jwt: {
-    secret: process.env.JWT_SECRET || "default_secret_key",
-  },
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.sub;
+    jwt({ token, user }) {
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
       }
+      return token;
+    },
+    session({ session, token }) {
+      if (token) {
+        session.user = {
+          id: token.id,
+          name: token.name,
+          email: token.email,
+        };
+      }
+      console.log("Session created:", session);
       return session;
     },
   },
-  pages: {
-    signIn: "/auth/signin", 
+  secret: "helloHello",
+  session: {
+    strategy: "jwt",
   },
-};
+  debug: process.env.NODE_ENV === "development",
+  pages: {
+    signIn: "/auth/signin",
+  },
+});
 
-export default NextAuth(authOptions);
+export const { auth } = authHandler;
+export const GET = authHandler;
+export const POST = authHandler;

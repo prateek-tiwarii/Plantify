@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import WobbleCardDemo from "@/_components/WobbleCardDemo"
-import ProductGrid from '@/_components/ProductCrad'
+
 import { MoveRight } from 'lucide-react'
 import { TypewriterEffect } from '@/components/ui/typewriter-effect'
 
@@ -57,13 +57,10 @@ const LandingPage = () => {
 
     <div className='flex flex-col items-start m-20 gap-4'>
     <h1 className='text-green-700 text-6xl font-bold '>Popular Products</h1>
-    <div className='flex flex-row justify-between items-center w-full'>
-      <h4 className='text-gray-500 font-medium text-lg'> Explore all products we offer from around the world</h4>
-      <Button variant= "link"><span  className="text-green-700 font-medium text-lg flex flex-row gap-2 align-middle "> Shop the collection <MoveRight /></span></Button>
-
-      <ProductGrid/>
-      </div>
+   
     </div>
+
+   
 
    
     
