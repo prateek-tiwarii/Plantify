@@ -30,7 +30,7 @@ model Seller {
   age        Int?
   city       String?
   phone      Int?
-  product    Products[]
+  products   Products[]
   role       String     @default("seller")
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now())
@@ -39,6 +39,8 @@ model Seller {
 model Products {
   id          Int      @id @default(autoincrement())
   name        String
+  category    String
+  image       String
   price       Float
   description String
   created_at  DateTime @default(now())
@@ -70,4 +72,5 @@ model Orders {
   updated_at DateTime @default(now())
   user       Users    @relation(fields: [userId], references: [id])
   product    Products @relation(fields: [productId], references: [id])
+  isActive   Boolean  @default(true)
 }
