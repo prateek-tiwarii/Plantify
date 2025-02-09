@@ -56,7 +56,7 @@ model Cart {
   id         Int      @id @default(autoincrement())
   userId     Int
   productId  Int
-  quantity   Int
+  quantity   Int      @default(1)
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   user       Users    @relation(fields: [userId], references: [id])
