@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -90,3 +91,50 @@ export async function DELETE(req : any){
      }
 
 }
+
+export async function PATCH(req: any){
+
+try{
+
+
+    const session = await auth()
+
+    if(!session){
+        NextResponse.json({error: "unauthorised"}, {status: 401})
+    }
+
+
+    const{cartId , quantity} = await req.json();
+
+
+
+    if(!cartId || !quantity){
+        return {error: "cart id and quantity are required"}
+    }
+
+    const cart = await prisma.cart.findUnique({
+        where:{
+            id: cartId
+        }
+    })
+
+   if(!cart){
+       return NextResponse.json({error: "cart not found"})
+   }
+
+   const updateCart = await prisma.cart.updateMany({
+    where:{id: session.user.id , productId: cart.productId},
+    data:{
+        quantity}
+   })
+
+   return NextResponse.json({success : true , message : "Product updated sucessfully"}, {status: 200})
+
+   
+} catch(err){
+    console.error("Error in updating product to cart:", err);
+    return {error: "error in updating the product to cart"}
+}
+
+}
+
